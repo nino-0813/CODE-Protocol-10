@@ -38,44 +38,44 @@ const ConfidenceTool: React.FC<ConfidenceToolProps> = ({ onBack }) => {
   const verdict = getVerdict();
 
   return (
-    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-      <button onClick={onBack} className="flex items-center text-[#4ade80] mb-8 hover:opacity-80 transition-opacity group">
-        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 px-0 sm:px-0">
+      <button type="button" onClick={onBack} className="flex items-center gap-2 text-[#4ade80] mb-8 min-h-[44px] touch-manipulation hover:opacity-80 transition-opacity group -ml-1">
+        <ChevronLeft className="w-5 h-5 shrink-0 group-hover:-translate-x-1 transition-transform" />
         <span>ダッシュボードに戻る</span>
       </button>
 
-      <div className="mb-12 text-center lg:text-left">
+      <div className="mb-8 sm:mb-12 text-center lg:text-left">
         <h2 className="text-sm font-mono text-[#4ade80] tracking-[0.3em] uppercase mb-2">Protocol 03: Confidence Interval</h2>
-        <h1 className="text-4xl font-bold text-white mb-4">たまたまじゃない度チェック</h1>
-        <p className="text-gray-400 text-lg italic">「目の前の数字は、たまたま運が良かっただけか、それとも真実か？」</p>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 break-words">たまたまじゃない度チェック</h1>
+        <p className="text-gray-400 text-base sm:text-lg italic break-words">「目の前の数字は、たまたま運が良かっただけか、それとも真実か？」</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-5 space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="lg:col-span-5 space-y-8 lg:space-y-10">
           <div className="space-y-3">
             <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">よくある調査例</span>
             <div className="flex flex-wrap gap-2">
               {scenarios.map((s, i) => (
-                <button key={i} onClick={() => { setSampleSize(s.n); setSuccessCount(s.k); }} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400 hover:bg-[#4ade80]/10 transition-all">{s.label}</button>
+                <button type="button" key={i} onClick={() => { setSampleSize(s.n); setSuccessCount(s.k); }} className="min-h-[44px] px-4 py-3 sm:py-2 rounded-full text-xs text-left text-gray-400 bg-white/5 border border-white/10 hover:bg-[#4ade80]/10 transition-all touch-manipulation break-words max-w-full">{s.label}</button>
               ))}
             </div>
           </div>
 
-          <div className="space-y-10 bg-[#0a0a0a] p-10 rounded-3xl border border-white/5 shadow-2xl">
+          <div className="space-y-10 bg-[#0a0a0a] p-6 sm:p-10 rounded-3xl border border-white/5 shadow-2xl">
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-semibold text-gray-300">調べた人数 (全体数)</label>
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <label className="text-sm font-semibold text-gray-300 shrink-0">調べた人数 (全体数)</label>
                 <span className="text-xl font-mono text-[#4ade80]">{sampleSize}</span>
               </div>
-              <input type="range" min="5" max="2000" step="5" value={sampleSize} onChange={(e) => setSampleSize(Number(e.target.value))} className="w-full h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80]" />
+              <input type="range" min="5" max="2000" step="5" value={sampleSize} onChange={(e) => setSampleSize(Number(e.target.value))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="調べた人数" />
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-semibold text-gray-300">当てはまった人数 (成功数)</label>
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <label className="text-sm font-semibold text-gray-300 shrink-0">当てはまった人数 (成功数)</label>
                 <span className="text-xl font-mono text-[#4ade80]">{successCount}</span>
               </div>
-              <input type="range" min="0" max={sampleSize} value={successCount} onChange={(e) => setSuccessCount(Math.min(sampleSize, Number(e.target.value)))} className="w-full h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80]" />
+              <input type="range" min="0" max={sampleSize} value={successCount} onChange={(e) => setSuccessCount(Math.min(sampleSize, Number(e.target.value)))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="当てはまった人数" />
             </div>
 
             <button onClick={() => setSampleSize(100) || setSuccessCount(60)} className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-500 hover:bg-white/10 transition-colors">

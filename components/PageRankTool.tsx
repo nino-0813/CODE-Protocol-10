@@ -134,7 +134,7 @@ const PageRankTool: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
   return (
     <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 select-none">
-      <button onClick={onBack} className="flex items-center text-[#4ade80] mb-8 hover:opacity-80 transition-opacity group">
+      <button type="button" onClick={onBack} className="flex items-center gap-2 text-[#4ade80] mb-8 min-h-[44px] touch-manipulation hover:opacity-80 transition-opacity group -ml-1">
         <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
         <span>ダッシュボードに戻る</span>
       </button>

@@ -76,6 +76,11 @@
             border-radius: 10px;
             opacity: 0.3;
         }
+        /* スマホ向け：タップ領域・スライダー操作 */
+        @media (max-width: 1023px) {
+            input[type="range"] { min-height: 44px; padding: 12px 0; touch-action: none; }
+            .touch-manipulation { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        }
         @keyframes scanline {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100vh); }

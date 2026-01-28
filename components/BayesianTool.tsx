@@ -35,29 +35,30 @@ const BayesianTool: React.FC<BayesianToolProps> = ({ onBack }) => {
   const verdict = getVerdict();
 
   return (
-    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
-      <button onClick={onBack} className="flex items-center text-[#4ade80] mb-8 hover:opacity-80 transition-opacity group">
-        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+    <div className="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 px-0 sm:px-0">
+      <button type="button" onClick={onBack} className="flex items-center gap-2 text-[#4ade80] mb-8 min-h-[44px] touch-manipulation hover:opacity-80 transition-opacity group -ml-1">
+        <ChevronLeft className="w-5 h-5 shrink-0 group-hover:-translate-x-1 transition-transform" />
         <span>ダッシュボードに戻る</span>
       </button>
 
-      <div className="mb-12">
+      <div className="mb-8 sm:mb-12">
         <h2 className="text-sm font-mono text-[#4ade80] tracking-[0.3em] uppercase mb-2">Protocol 01: Bayesian Update</h2>
-        <h1 className="text-4xl font-bold text-white mb-4">確信度アップデート計算機</h1>
-        <p className="text-gray-400 text-lg italic">「新しい情報を見て、自分の『自信』を数学的に書き換える」</p>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 break-words">確信度アップデート計算機</h1>
+        <p className="text-gray-400 text-base sm:text-lg italic break-words">「新しい情報を見て、自分の『自信』を数学的に書き換える」</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-5 space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="lg:col-span-5 space-y-8 lg:space-y-10">
           {/* Scenario Buttons */}
           <div className="space-y-3">
             <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">シミュレーションを選択</span>
             <div className="flex flex-wrap gap-2">
               {scenarios.map((s, i) => (
-                <button 
+                <button
+                  type="button"
                   key={i}
                   onClick={() => { setPrior(s.p); setLikelihood(s.l); setFalsePositive(s.f); }}
-                  className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400 hover:bg-[#4ade80]/10 hover:text-[#4ade80] hover:border-[#4ade80]/30 transition-all"
+                  className="min-h-[44px] px-4 py-3 sm:py-2 rounded-full text-xs sm:text-left text-gray-400 bg-white/5 border border-white/10 hover:bg-[#4ade80]/10 hover:text-[#4ade80] hover:border-[#4ade80]/30 transition-all touch-manipulation break-words max-w-full"
                 >
                   {s.label}
                 </button>
@@ -65,13 +66,13 @@ const BayesianTool: React.FC<BayesianToolProps> = ({ onBack }) => {
             </div>
           </div>
 
-          <div className="space-y-8 bg-[#0a0a0a] p-8 rounded-3xl border border-white/5 shadow-2xl">
+          <div className="space-y-8 bg-[#0a0a0a] p-6 sm:p-8 rounded-3xl border border-white/5 shadow-2xl">
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-semibold text-gray-300">もともとの自信 (事前確率)</label>
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <label className="text-sm font-semibold text-gray-300 shrink-0">もともとの自信 (事前確率)</label>
                 <span className="text-xl font-mono text-[#4ade80]">{prior}%</span>
               </div>
-              <input type="range" min="0" max="100" value={prior} onChange={(e) => setPrior(Number(e.target.value))} className="w-full h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80]" />
+              <input type="range" min="0" max="100" value={prior} onChange={(e) => setPrior(Number(e.target.value))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="事前確率" />
               <p className="text-[10px] text-gray-600">証拠を見る前に「それが本当だ」と思っていた確率</p>
             </div>
 
@@ -80,7 +81,7 @@ const BayesianTool: React.FC<BayesianToolProps> = ({ onBack }) => {
                 <label className="text-sm font-semibold text-gray-300">本物ならこうなる確率 (再現率)</label>
                 <span className="text-xl font-mono text-[#4ade80]">{likelihood}%</span>
               </div>
-              <input type="range" min="0" max="100" value={likelihood} onChange={(e) => setLikelihood(Number(e.target.value))} className="w-full h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80]" />
+              <input type="range" min="0" max="100" value={likelihood} onChange={(e) => setLikelihood(Number(e.target.value))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="再現率" />
               <p className="text-[10px] text-gray-600">もし仮説が正しければ、その証拠が出る確率</p>
             </div>
 
@@ -89,7 +90,7 @@ const BayesianTool: React.FC<BayesianToolProps> = ({ onBack }) => {
                 <label className="text-sm font-semibold text-gray-300">嘘でもこうなる確率 (偽陽性率)</label>
                 <span className="text-xl font-mono text-[#4ade80]">{falsePositive}%</span>
               </div>
-              <input type="range" min="0" max="100" value={falsePositive} onChange={(e) => setFalsePositive(Number(e.target.value))} className="w-full h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80]" />
+              <input type="range" min="0" max="100" value={falsePositive} onChange={(e) => setFalsePositive(Number(e.target.value))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="偽陽性率" />
               <p className="text-[10px] text-gray-600">もし仮説が間違っていても、偶然その証拠が出てしまう確率</p>
             </div>
 

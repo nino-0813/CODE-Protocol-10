@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Menu } from 'lucide-react';
 import { AppView } from './types';
 import { EQUATIONS } from './constants';
 import Header from './components/Header';
@@ -18,6 +18,7 @@ import IfThenTool from './components/IfThenTool';
 
 const App: React.FC = () => {
   const [view, setView] = useState<AppView>('dashboard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleCardClick = (id: string) => {
     const map: Record<string, AppView> = {
@@ -74,14 +75,30 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] selection:bg-[#4ade80] selection:text-black flex flex-col lg:flex-row relative">
-      {/* Global Sidebar */}
-      <Sidebar currentView={view} onNavigate={(v) => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setView(v);
-      }} />
+      {/* スマホのみ：メニュー開くボタン */}
+      <button
+        type="button"
+        onClick={() => setMobileMenuOpen(true)}
+        className="fixed top-4 left-4 z-[102] lg:hidden flex items-center justify-center w-12 h-12 rounded-xl bg-black/80 border border-white/10 text-[#4ade80] hover:bg-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors touch-manipulation"
+        aria-label="メニューを開く"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
 
-      {/* Main Content Area */}
-      <main className="flex-1 lg:ml-16 relative">
+      {/* Global Sidebar（スマホではドロワー） */}
+      <Sidebar
+        currentView={view}
+        onNavigate={(v) => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setView(v);
+          setMobileMenuOpen(false);
+        }}
+        isMobileOpen={mobileMenuOpen}
+        onMobileClose={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Main Content Area（スマホは全幅、PCはサイドバー分よける） */}
+      <main className="flex-1 min-w-0 lg:ml-16 relative">
         {/* Decorative elements for 'intellectual thrill' */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-[#4ade80]/[0.015] rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4" />
@@ -90,13 +107,13 @@ const App: React.FC = () => {
           <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-16 py-12 max-w-[1400px]">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 pt-20 pb-12 lg:pt-12 max-w-[1400px]">
           {renderContent()}
         </div>
       </main>
 
-      {/* Persistent Technical Overlays */}
-      <div className="fixed top-0 left-16 right-0 h-1 bg-gradient-to-r from-[#4ade80]/40 via-transparent to-transparent z-[110]" />
+      {/* Persistent Technical Overlays（スマホは左端から、PCはサイドバー右端から） */}
+      <div className="fixed top-0 left-0 lg:left-16 right-0 h-1 bg-gradient-to-r from-[#4ade80]/40 via-transparent to-transparent z-[110]" />
       
       {/* Dynamic technical stats at bottom-right */}
       <div className="fixed bottom-8 right-8 pointer-events-none opacity-40 z-50 hidden xl:block">

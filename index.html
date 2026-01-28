@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE TEN - World Control Protocol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;700&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #4ade80;
+            --deep-black: #050505;
+        }
+        body {
+            background-color: var(--deep-black);
+            color: #ffffff;
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.6), 0 0 20px rgba(74, 222, 128, 0.2);
+        }
+        .glow-border {
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
+        }
+        .matrix-grid {
+            background-image: 
+                linear-gradient(rgba(74, 222, 128, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 222, 128, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        /* Matrix-like falling code simulation (subtle) */
+        .matrix-bg::before {
+            content: "101101001010110101010100101010110101010101011010101";
+            position: fixed;
+            top: -100px;
+            left: 5%;
+            width: 1ch;
+            color: rgba(74, 222, 128, 0.05);
+            font-family: 'JetBrains Mono';
+            font-size: 14px;
+            line-height: 1;
+            white-space: pre-wrap;
+            word-break: break-all;
+            pointer-events: none;
+            animation: fall 20s linear infinite;
+            z-index: 0;
+            filter: blur(1px);
+        }
+        @keyframes fall {
+            to { transform: translateY(120vh); }
+        }
+        .card-hover:hover {
+            box-shadow: 0 0 40px rgba(74, 222, 128, 0.15);
+            border-color: var(--neon-green);
+            transform: translateY(-2px);
+        }
+        .sidebar-glass {
+            background: rgba(8, 8, 8, 0.85);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(74, 222, 128, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 10px;
+            opacity: 0.3;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+        .scanline {
+            width: 100%;
+            height: 4px;
+            z-index: 100;
+            background: rgba(74, 222, 128, 0.05);
+            position: fixed;
+            pointer-events: none;
+            animation: scanline 6s linear infinite;
+            box-shadow: 0 0 10px rgba(74, 222, 128, 0.2);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="matrix-grid matrix-bg">
+    <div class="scanline"></div>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

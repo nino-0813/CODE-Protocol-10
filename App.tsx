@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Menu } from 'lucide-react';
 import { AppView } from './types';
 import { EQUATIONS } from './constants';
@@ -75,6 +76,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] selection:bg-[#4ade80] selection:text-black flex flex-col lg:flex-row relative">
+      <Analytics />
       {/* スマホのみ：メニュー開くボタン */}
       <button
         type="button"

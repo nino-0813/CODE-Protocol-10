@@ -118,57 +118,58 @@ const CorrelationTool: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         <span>ダッシュボードに戻る</span>
       </button>
 
-      <div className="mb-12">
-        <h2 className="text-sm font-mono text-[#4ade80] tracking-[0.3em] uppercase mb-2">Protocol 07: Behavior Linkage</h2>
-        <h1 className="text-4xl font-bold text-white mb-4">欲望プロファイラー</h1>
-        <p className="text-gray-400 text-lg italic">「一見無関係な行動の裏に潜む、あなたを操る『同期率』を暴く」</p>
+      <div className="mb-8 sm:mb-12">
+        <h2 className="text-xs sm:text-sm font-mono text-[#4ade80] tracking-[0.3em] uppercase mb-2">Protocol 07: Behavior Linkage</h2>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 break-words">欲望プロファイラー</h1>
+        <p className="text-gray-400 text-sm sm:text-lg italic break-words">「一見無関係な行動の裏に潜む、あなたを操る『同期率』を暴く」</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
         {/* Left Control Panel */}
-        <div className="lg:col-span-5 space-y-8">
+        <div className="lg:col-span-5 space-y-6 sm:space-y-8">
           <div className="space-y-3">
             <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest flex items-center gap-2">
               <Search className="w-3 h-3" /> プロファイリングの型を選択
             </span>
             <div className="flex flex-col gap-2">
               {PRESETS.map((p, i) => (
-                <button 
-                  key={i} 
-                  onClick={() => loadScenario(p)} 
-                  className={`p-4 border rounded-2xl text-left transition-all group ${xLabel === p.xLabel ? 'bg-[#4ade80]/10 border-[#4ade80] text-[#4ade80]' : 'bg-white/5 border-white/10 text-gray-500 hover:text-gray-300'}`}
+                <button
+                  type="button"
+                  key={i}
+                  onClick={() => loadScenario(p)}
+                  className={`p-3 sm:p-4 border rounded-xl sm:rounded-2xl text-left transition-all group min-h-[44px] touch-manipulation ${xLabel === p.xLabel ? 'bg-[#4ade80]/10 border-[#4ade80] text-[#4ade80]' : 'bg-white/5 border-white/10 text-gray-500 hover:text-gray-300'}`}
                 >
-                  <div className="text-xs font-bold mb-1">{p.name}</div>
-                  <div className="text-[10px] opacity-60 italic leading-tight">{p.insight}</div>
+                  <div className="text-[11px] sm:text-xs font-bold mb-0.5 sm:mb-1 break-words">{p.name}</div>
+                  <div className="text-[9px] sm:text-[10px] opacity-60 italic leading-tight line-clamp-2">{p.insight}</div>
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="bg-[#0a0a0a] p-8 rounded-3xl border border-white/5 shadow-2xl space-y-6">
+          <div className="bg-[#0a0a0a] p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-white/5 shadow-2xl space-y-4 sm:space-y-6">
             <div className="flex items-center gap-2 mb-2">
-              <Fingerprint className="w-4 h-4 text-[#4ade80]" />
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">行動データの入力</span>
+              <Fingerprint className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#4ade80] shrink-0" />
+              <span className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest">行動データの入力</span>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-4">
               <div className="space-y-1">
-                <label className="text-[9px] text-gray-600 font-bold uppercase">{xLabel}</label>
-                <input value={newX} onChange={e => setNewX(e.target.value)} placeholder="0" className="w-full bg-black border border-white/10 rounded-xl px-4 py-2 text-sm text-white outline-none focus:border-[#4ade80]" type="number" />
+                <label className="text-[8px] sm:text-[9px] text-gray-600 font-bold uppercase truncate block">{xLabel}</label>
+                <input value={newX} onChange={e => setNewX(e.target.value)} placeholder="0" className="w-full bg-black border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-white outline-none focus:border-[#4ade80] touch-manipulation" type="number" aria-label={xLabel} />
               </div>
               <div className="space-y-1">
-                <label className="text-[9px] text-gray-600 font-bold uppercase">{yLabel}</label>
-                <input value={newY} onChange={e => setNewY(e.target.value)} placeholder="0" className="w-full bg-black border border-white/10 rounded-xl px-4 py-2 text-sm text-white outline-none focus:border-[#4ade80]" type="number" />
+                <label className="text-[8px] sm:text-[9px] text-gray-600 font-bold uppercase truncate block">{yLabel}</label>
+                <input value={newY} onChange={e => setNewY(e.target.value)} placeholder="0" className="w-full bg-black border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-white outline-none focus:border-[#4ade80] touch-manipulation" type="number" aria-label={yLabel} />
               </div>
             </div>
-            <button onClick={() => {if(newX && newY){setDataPoints([...dataPoints, {id: Date.now().toString(), x: Number(newX), y: Number(newY)}]); setNewX(''); setNewY('');}}} className="w-full py-4 bg-[#4ade80] text-black font-black rounded-2xl text-xs hover:shadow-[0_0_20px_#4ade80] transition-all flex items-center justify-center gap-2">
+            <button type="button" onClick={() => {if(newX && newY){setDataPoints([...dataPoints, {id: Date.now().toString(), x: Number(newX), y: Number(newY)}]); setNewX(''); setNewY('');}}} className="w-full py-3 sm:py-4 bg-[#4ade80] text-black font-black rounded-xl sm:rounded-2xl text-[11px] sm:text-xs hover:shadow-[0_0_20px_#4ade80] transition-all flex items-center justify-center gap-2 touch-manipulation min-h-[44px]">
               <Plus className="w-4 h-4" /> 証拠データを刻印せよ
             </button>
             
-            <div className="max-h-40 overflow-y-auto custom-scrollbar space-y-2 pr-2">
+            <div className="max-h-32 sm:max-h-40 overflow-y-auto custom-scrollbar space-y-1.5 sm:space-y-2 pr-2">
               {dataPoints.map(p => (
-                <div key={p.id} className="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5 text-[10px] text-gray-500 font-mono group">
-                  <span className="group-hover:text-gray-300 transition-colors">X: {p.x} → Y: {p.y}</span>
-                  <button onClick={() => setDataPoints(dataPoints.filter(d => d.id !== p.id))} className="text-gray-800 hover:text-red-500 transition-colors"><Trash2 className="w-3 h-3" /></button>
+                <div key={p.id} className="flex justify-between items-center p-2 sm:p-3 bg-white/5 rounded-lg sm:rounded-xl border border-white/5 text-[9px] sm:text-[10px] text-gray-500 font-mono group">
+                  <span className="group-hover:text-gray-300 transition-colors truncate min-w-0">X: {p.x} → Y: {p.y}</span>
+                  <button type="button" onClick={() => setDataPoints(dataPoints.filter(d => d.id !== p.id))} className="text-gray-800 hover:text-red-500 transition-colors shrink-0 p-1 touch-manipulation" aria-label="削除"><Trash2 className="w-3 h-3" /></button>
                 </div>
               ))}
             </div>
@@ -177,20 +178,20 @@ const CorrelationTool: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
         {/* Right Output Panel */}
         <div className="lg:col-span-7">
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-[40px] p-10 shadow-2xl space-y-10 flex flex-col items-center">
+          <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl sm:rounded-[30px] lg:rounded-[40px] p-5 sm:p-8 lg:p-10 shadow-2xl space-y-6 sm:space-y-8 lg:space-y-10 flex flex-col items-center">
             
             <div className="text-center">
-              <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4">Synchronization rate</p>
-              <div className="text-9xl font-black text-white glow-text font-mono leading-none flex items-baseline">
+              <p className="text-gray-600 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-2 sm:mb-4">Synchronization rate</p>
+              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black text-white glow-text font-mono leading-none flex items-baseline justify-center">
                 {Math.abs(stats.r).toFixed(3)}
               </div>
-              <p className="text-[#4ade80] text-[10px] font-bold mt-4 uppercase tracking-[0.3em]">
+              <p className="text-[#4ade80] text-[9px] sm:text-[10px] font-bold mt-2 sm:mt-4 uppercase tracking-[0.3em] break-words">
                 {stats.r > 0 ? "正の連動関係" : stats.r < 0 ? "負の反比例関係" : "無相関"}
               </p>
             </div>
 
             {/* Pattern Visualization */}
-            <div className="relative aspect-video w-full border border-white/5 bg-black/60 rounded-[30px] overflow-hidden p-10 group shadow-inner">
+            <div className="relative aspect-video w-full border border-white/5 bg-black/60 rounded-xl sm:rounded-[24px] lg:rounded-[30px] overflow-hidden p-4 sm:p-6 lg:p-10 group shadow-inner">
               <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                 {/* Connecting lines to emphasize pattern */}
                 <path 
@@ -213,32 +214,32 @@ const CorrelationTool: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   />
                 ))}
               </svg>
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-gray-700 font-bold uppercase tracking-widest flex items-center gap-2">
-                {xLabel} <div className="w-8 h-[1px] bg-gray-800" />
+              <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 text-[7px] sm:text-[9px] text-gray-700 font-bold uppercase tracking-widest flex items-center gap-1 sm:gap-2 max-w-[90%] truncate">
+                <span className="truncate">{xLabel}</span> <div className="w-4 sm:w-8 h-[1px] bg-gray-800 shrink-0" />
               </div>
-              <div className="absolute left-4 top-1/2 -rotate-90 -translate-y-1/2 text-[9px] text-gray-700 font-bold uppercase tracking-widest flex items-center gap-2">
-                {yLabel} <div className="w-8 h-[1px] bg-gray-800" />
+              <div className="absolute left-2 sm:left-4 top-1/2 -rotate-90 -translate-y-1/2 text-[7px] sm:text-[9px] text-gray-700 font-bold uppercase tracking-widest flex items-center gap-1 sm:gap-2 origin-center whitespace-nowrap">
+                {yLabel} <div className="w-4 sm:w-8 h-[1px] bg-gray-800 shrink-0" />
               </div>
             </div>
 
             {/* Verdict Dossier */}
-            <div className={`w-full ${verdict.bg} ${verdict.border} border p-10 rounded-[30px] space-y-4 relative overflow-hidden group shadow-lg`}>
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Network className="w-32 h-32 text-[#4ade80]" />
+            <div className={`w-full ${verdict.bg} ${verdict.border} border p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-[24px] lg:rounded-[30px] space-y-2 sm:space-y-4 relative overflow-hidden group shadow-lg`}>
+              <div className="absolute top-0 right-0 p-4 sm:p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Network className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 text-[#4ade80]" />
               </div>
               <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-2">
-                  <Fingerprint className={`w-4 h-4 ${verdict.color}`} />
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${verdict.color}`}>Security Report</span>
+                <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                  <Fingerprint className={`w-3 h-3 sm:w-4 sm:h-4 ${verdict.color} shrink-0`} />
+                  <span className={`text-[9px] sm:text-[10px] font-black uppercase tracking-widest ${verdict.color}`}>Security Report</span>
                 </div>
-                <h3 className={`text-3xl font-black mb-4 ${verdict.color}`}>{verdict.status}</h3>
-                <p className="text-gray-300 leading-relaxed italic text-lg">"{verdict.desc}"</p>
+                <h3 className={`text-base sm:text-xl lg:text-3xl font-black mb-2 sm:mb-4 ${verdict.color} break-words`}>{verdict.status}</h3>
+                <p className="text-gray-300 text-xs sm:text-sm lg:text-lg leading-relaxed italic break-words">"{verdict.desc}"</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 p-4 bg-black/40 rounded-2xl border border-white/5 w-full">
-              <AlertCircle className="w-5 h-5 text-gray-700 shrink-0 mt-1" />
-              <p className="text-[10px] text-gray-600 leading-relaxed">
+            <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 bg-black/40 rounded-xl sm:rounded-2xl border border-white/5 w-full">
+              <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 shrink-0 mt-0.5 sm:mt-1" />
+              <p className="text-[9px] sm:text-[10px] text-gray-600 leading-relaxed break-words min-w-0">
                 <strong>TENの教訓:</strong> 「相関関係」は「因果関係」とは異なります。しかし、2つの事象が同期しているという事実は、一方がもう一方の予測スイッチ（レバー）になっていることを意味します。システムはこのレバーを使ってあなたを誘導します。
               </p>
             </div>

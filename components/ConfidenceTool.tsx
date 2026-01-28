@@ -50,8 +50,8 @@ const ConfidenceTool: React.FC<ConfidenceToolProps> = ({ onBack }) => {
         <p className="text-gray-400 text-base sm:text-lg italic break-words">「目の前の数字は、たまたま運が良かっただけか、それとも真実か？」</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-        <div className="lg:col-span-5 space-y-8 lg:space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12">
+        <div className="lg:col-span-5 space-y-6 sm:space-y-8 lg:space-y-10">
           <div className="space-y-3">
             <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">よくある調査例</span>
             <div className="flex flex-wrap gap-2">
@@ -61,60 +61,60 @@ const ConfidenceTool: React.FC<ConfidenceToolProps> = ({ onBack }) => {
             </div>
           </div>
 
-          <div className="space-y-10 bg-[#0a0a0a] p-6 sm:p-10 rounded-3xl border border-white/5 shadow-2xl">
-            <div className="space-y-4">
+          <div className="space-y-8 sm:space-y-10 bg-[#0a0a0a] p-5 sm:p-6 md:p-10 rounded-2xl sm:rounded-3xl border border-white/5 shadow-2xl">
+            <div className="space-y-2 sm:space-y-4">
               <div className="flex flex-wrap justify-between items-center gap-2">
-                <label className="text-sm font-semibold text-gray-300 shrink-0">調べた人数 (全体数)</label>
-                <span className="text-xl font-mono text-[#4ade80]">{sampleSize}</span>
+                <label className="text-xs sm:text-sm font-semibold text-gray-300 shrink-0">調べた人数 (全体数)</label>
+                <span className="text-lg sm:text-xl font-mono text-[#4ade80]">{sampleSize}</span>
               </div>
               <input type="range" min="5" max="2000" step="5" value={sampleSize} onChange={(e) => setSampleSize(Number(e.target.value))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="調べた人数" />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-2 sm:space-y-4">
               <div className="flex flex-wrap justify-between items-center gap-2">
-                <label className="text-sm font-semibold text-gray-300 shrink-0">当てはまった人数 (成功数)</label>
-                <span className="text-xl font-mono text-[#4ade80]">{successCount}</span>
+                <label className="text-xs sm:text-sm font-semibold text-gray-300 shrink-0">当てはまった人数 (成功数)</label>
+                <span className="text-lg sm:text-xl font-mono text-[#4ade80]">{successCount}</span>
               </div>
               <input type="range" min="0" max={sampleSize} value={successCount} onChange={(e) => setSuccessCount(Math.min(sampleSize, Number(e.target.value)))} className="w-full h-2 sm:h-1 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-[#4ade80] touch-manipulation py-2" aria-label="当てはまった人数" />
             </div>
 
-            <button onClick={() => setSampleSize(100) || setSuccessCount(60)} className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs text-gray-500 hover:bg-white/10 transition-colors">
-              <RefreshCw className="w-3 h-3 mx-auto" />
+            <button type="button" onClick={() => setSampleSize(100) || setSuccessCount(60)} className="w-full py-2.5 sm:py-3 bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-[11px] sm:text-xs text-gray-500 hover:bg-white/10 transition-colors touch-manipulation min-h-[44px] flex items-center justify-center">
+              <RefreshCw className="w-3 h-3" />
             </button>
           </div>
         </div>
 
         <div className="lg:col-span-7 flex flex-col justify-center">
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-[40px] p-12 shadow-2xl space-y-12">
+          <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl sm:rounded-[30px] lg:rounded-[40px] p-5 sm:p-8 lg:p-12 shadow-2xl space-y-6 sm:space-y-8 lg:space-y-12">
             <div className="text-center">
-              <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4">Measured Ratio</p>
-              <div className="text-8xl font-black text-white glow-text font-mono leading-none">
-                {proportion.toFixed(1)}<span className="text-3xl">%</span>
+              <p className="text-gray-600 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-2 sm:mb-4">Measured Ratio</p>
+              <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white glow-text font-mono leading-none">
+                {proportion.toFixed(1)}<span className="text-xl sm:text-2xl lg:text-3xl">%</span>
               </div>
-              <p className="text-gray-400 text-sm mt-6 font-bold tracking-widest uppercase">調査上の結果</p>
+              <p className="text-gray-400 text-xs sm:text-sm mt-3 sm:mt-6 font-bold tracking-widest uppercase">調査上の結果</p>
             </div>
 
-            <div className="space-y-6">
-              <div className="relative h-16 flex items-center px-4 bg-black/40 rounded-2xl border border-white/5">
-                <div className="absolute inset-x-8 h-[2px] bg-white/5" />
-                <div className="absolute h-3 bg-[#4ade80]/30 rounded-full border border-[#4ade80]/50 shadow-[0_0_15px_rgba(74,222,128,0.2)]" style={{ left: `${lowerBound}%`, width: `${upperBound - lowerBound}%` }} />
-                <div className="absolute w-5 h-5 bg-[#4ade80] rounded-full shadow-[0_0_20px_#4ade80]" style={{ left: `calc(${proportion}% - 10px)` }} />
+            <div className="space-y-3 sm:space-y-6">
+              <div className="relative h-12 sm:h-14 lg:h-16 flex items-center px-3 sm:px-4 bg-black/40 rounded-xl sm:rounded-2xl border border-white/5">
+                <div className="absolute inset-x-4 sm:inset-x-8 h-[2px] bg-white/5" />
+                <div className="absolute h-2.5 sm:h-3 bg-[#4ade80]/30 rounded-full border border-[#4ade80]/50 shadow-[0_0_15px_rgba(74,222,128,0.2)]" style={{ left: `${lowerBound}%`, width: `${upperBound - lowerBound}%` }} />
+                <div className="absolute w-4 h-4 sm:w-5 sm:h-5 bg-[#4ade80] rounded-full shadow-[0_0_20px_#4ade80] -translate-x-1/2 -translate-y-1/2" style={{ left: `${proportion}%`, top: '50%' }} />
               </div>
-              <div className="flex justify-between text-[10px] text-gray-600 font-mono tracking-tighter">
-                <span>最悪の場合: {lowerBound.toFixed(1)}%</span>
-                <span className="text-[#4ade80]">誤差範囲: ±{marginOfError.toFixed(1)}%</span>
-                <span>最高の場合: {upperBound.toFixed(1)}%</span>
+              <div className="flex flex-wrap justify-between gap-x-2 gap-y-1 text-[9px] sm:text-[10px] text-gray-600 font-mono tracking-tighter">
+                <span>最悪: {lowerBound.toFixed(1)}%</span>
+                <span className="text-[#4ade80]">±{marginOfError.toFixed(1)}%</span>
+                <span>最高: {upperBound.toFixed(1)}%</span>
               </div>
             </div>
 
-            <div className="bg-black/80 border border-white/5 p-8 rounded-3xl space-y-4">
-              <h3 className={`text-2xl font-black ${verdict.color}`}>{verdict.text}</h3>
-              <p className="text-gray-400 leading-relaxed italic">"{verdict.desc}"</p>
+            <div className="bg-black/80 border border-white/5 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl space-y-2 sm:space-y-4">
+              <h3 className={`text-base sm:text-xl lg:text-2xl font-black ${verdict.color} break-words`}>{verdict.text}</h3>
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed italic break-words">"{verdict.desc}"</p>
             </div>
             
-            <div className="flex items-center gap-4 p-4 bg-yellow-500/5 rounded-xl border border-yellow-500/10">
-              <AlertCircle className="w-5 h-5 text-yellow-500 shrink-0" />
-              <p className="text-[10px] text-gray-500 leading-tight italic">
+            <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-yellow-500/5 rounded-lg sm:rounded-xl border border-yellow-500/10">
+              <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 shrink-0 mt-0.5" />
+              <p className="text-[9px] sm:text-[10px] text-gray-500 leading-tight italic break-words min-w-0">
                 <strong>TENの教訓:</strong> 「80%の人が満足！」という広告も、調べたのが10人だけなら意味がありません。このツールで「本当の確かさ」を暴いてください。
               </p>
             </div>
